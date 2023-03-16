@@ -86,7 +86,7 @@ const SignUpForm = () => {
             onSubmit={handleSubmit}
         >
             <Typography variant="h4" sx={{ marginBottom: 2 }}>
-                Sign Up
+                Inscription
             </Typography>
             <TextField
                 label="Name"
@@ -96,6 +96,9 @@ const SignUpForm = () => {
                 fullWidth
                 margin="normal"
                 required
+                InputLabelProps={{
+                    shrink: true,
+                }}
             />
             <TextField
                 label="Email"
@@ -105,6 +108,9 @@ const SignUpForm = () => {
                 fullWidth
                 margin="normal"
                 required
+                InputLabelProps={{
+                    shrink: true,
+                }}
             />
             <TextField
                 label="Password"
@@ -126,6 +132,9 @@ const SignUpForm = () => {
                         </InputAdornment>
                     ),
                 }}
+                InputLabelProps={{
+                    shrink: true,
+                }}
             />
             <TextField
                 label="Confirm Password"
@@ -135,12 +144,15 @@ const SignUpForm = () => {
                 fullWidth
                 margin="normal"
                 required
+                InputLabelProps={{
+                    shrink: true,
+                }}
             />
             {/* I added ReCAPTCHA for the fun of it, I'm well aware that without a back-end, it's useless and would be a vulnerability */}
             <ReCAPTCHA sitekey="6LeJ8AQlAAAAANqwBMV3x799ask5UFJUkxxY8-lL" onChange={handleCaptchaChange} />
 
             <Button type="submit" variant="contained" sx={{ marginTop: 2 }}>
-                Sign Up
+                S'incrire
             </Button>
         </Box>
     );

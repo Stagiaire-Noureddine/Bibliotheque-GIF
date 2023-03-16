@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -11,7 +11,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 
-const SignInForm = () => {
+const SignInForm = ({ onLogin }) => {
     const [values, setValues] = useState({
         email: '',
         password: '',
@@ -19,26 +19,51 @@ const SignInForm = () => {
         showPassword: false,
     });
 
+    useEffect(() => {
+        // Load the rememberMe value from localStorage when the component mounts
+        const rememberMe = JSON.parse(localStorage.getItem('rememberMe'));
+        if (rememberMe !== null) {
+            setValues((prevState) => ({ ...prevState, rememberMe }));
 
+            const rememberedUser = JSON.parse(localStorage.getItem('rememberedUser'));
+            if (rememberedUser) {
+                setValues((prevState) => ({
+                    ...prevState,
+                    email: rememberedUser.email,
+                    password: rememberedUser.password,
+                }));
+            }
+        }
+
+    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-    
+
         // Retrieve the list of registered users from localStorage
         const users = JSON.parse(localStorage.getItem('users') || '[]');
-    
+
         // Find the user with the matching email and password
         const user = users.find(
             (u) => u.email === values.email && u.password === values.password
         );
-    
+
         if (user) {
             // If the user is found, store the user information in localStorage
             localStorage.setItem('loggedInUser', JSON.stringify(user));
-    
+
             // Save the rememberMe preference for the user
             localStorage.setItem('rememberMe', JSON.stringify(values.rememberMe));
-    
+
+            if (values.rememberMe) {
+                // Store the user's email and password if rememberMe is checked
+                localStorage.setItem('rememberedUser', JSON.stringify(user));
+                onLogin(user);
+            } else {
+                // Remove the rememberedUser from localStorage if rememberMe is unchecked
+                localStorage.removeItem('rememberedUser');
+            }
+
             // Clear the form
             setValues({
                 email: '',
@@ -46,7 +71,7 @@ const SignInForm = () => {
                 rememberMe: false,
                 showPassword: false,
             });
-    
+
             // Redirect to another page or show a success message
             alert('Vous vous êtes connecté avec succès !');
         } else {
@@ -54,7 +79,7 @@ const SignInForm = () => {
             alert('Nom d\'utilisateur ou mot de passe incorrect !');
         }
     };
-    
+
 
     const handleClickShowPassword = () => {
         setValues({
@@ -78,7 +103,7 @@ const SignInForm = () => {
             onSubmit={handleSubmit}
         >
             <Typography variant="h4" sx={{ marginBottom: 2 }}>
-                Sign In
+                Connexion
             </Typography>
             <TextField
                 label="Email"
@@ -129,7 +154,7 @@ const SignInForm = () => {
                 label="Remember me"
             />
             <Button type="submit" variant="contained" sx={{ marginTop: 2 }}>
-                Sign In
+                Se connecter
             </Button>
         </Box>
     );

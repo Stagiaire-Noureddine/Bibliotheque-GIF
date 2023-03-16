@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -12,7 +13,8 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 
 const SignInForm = ({ onLogin }) => {
-    const [values, setValues] = useState({
+    const [values, setValues] = useState({ 
+        // State to manage form values and UI interactions.
         email: '',
         password: '',
         rememberMe: false,
@@ -20,13 +22,15 @@ const SignInForm = ({ onLogin }) => {
     });
 
     useEffect(() => {
-        // Load the rememberMe value from localStorage when the component mounts
+        // Load rememberMe value and user information from localStorage when the component mounts
         const rememberMe = JSON.parse(localStorage.getItem('rememberMe'));
         if (rememberMe !== null) {
+            // Set the rememberMe value in the state if it exists in localStorage.
             setValues((prevState) => ({ ...prevState, rememberMe }));
-
+    
             const rememberedUser = JSON.parse(localStorage.getItem('rememberedUser'));
             if (rememberedUser) {
+                // If there is a remembered user, set their email and password in the state.
                 setValues((prevState) => ({
                     ...prevState,
                     email: rememberedUser.email,
@@ -34,9 +38,10 @@ const SignInForm = ({ onLogin }) => {
                 }));
             }
         }
-
     }, []);
+    
 
+    // Handle form submission for the SignInForm.
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -80,7 +85,7 @@ const SignInForm = ({ onLogin }) => {
         }
     };
 
-
+    // Toggle the visibility of the password field.
     const handleClickShowPassword = () => {
         setValues({
             ...values,
@@ -88,6 +93,7 @@ const SignInForm = ({ onLogin }) => {
         });
     };
 
+    // Render the SignInForm component.
     return (
         <Box
             component="form"

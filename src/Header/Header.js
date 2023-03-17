@@ -75,7 +75,7 @@ const Header = ({ loggedInUser, onUserLogin, onLogout }) => {
           </IconButton>
         </Toolbar>
       </AppBar>
-      <Typography variant="p" component="h2" sx={{ textAlign: 'center', marginTop: 2 }}>
+      <Typography variant="p" component="h2" sx={{ textAlign: 'center', margin: 3 }}>
         Le site pour trouver et sauvegarder tes GIFs préférés !
       </Typography>
       {/* Modal for the sign-in and sign-up forms */}

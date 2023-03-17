@@ -95,26 +95,27 @@ const Search = ({ loggedInUser }) => {
     return (
         // Form for searching GIFs
         <Box component="form" onSubmit={handleSubmit}>
-            <Grid container spacing={1} alignItems="center">
-                <Grid item xs={10} sm={10}>
-                    <TextField
-                        label="Recherche un GIF"
-                        type="text"
-                        value={searchQuery}
-                        onChange={handleSearchQueryChange}
-                        fullWidth
-                        required
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                    />
+                <Grid container spacing={1} alignItems="center" className="search-container">
+                    <Grid item xs={10} sm={10}>
+                        <TextField
+                            label="Recherche un GIF"
+                            type="text"
+                            value={searchQuery}
+                            onChange={handleSearchQueryChange}
+                            fullWidth
+                            required
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            placeholder="Rechercher des GIFs... (Appuyez sur Entrée)"
+                        />
+                    </Grid>
+                    <Grid item xs={2} sm={2}>
+                        <Button type="submit" variant="contained">
+                            Chercher
+                        </Button>
+                    </Grid>
                 </Grid>
-                <Grid item xs={2} sm={2}>
-                    <Button type="submit" variant="contained">
-                        Chercher
-                    </Button>
-                </Grid>
-            </Grid>
             {/* Display search results in a modal */}
             <SearchResult
                 results={searchResults}
@@ -133,5 +134,6 @@ const Search = ({ loggedInUser }) => {
         </Box>
     );
 };
+
 
 export default Search;

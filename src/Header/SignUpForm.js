@@ -37,7 +37,7 @@ const SignUpForm = () => {
 
         // Validate the form, e.g. make sure the password and confirm password fields match
         if (values.password !== values.confirmPassword) {
-            alert("Passwords don't match!");
+            alert("Les mots de passe ne correspondent pas !");
             return;
         }
 
@@ -65,7 +65,7 @@ const SignUpForm = () => {
         });
 
         // Show a success message
-        alert('Vous vous êtes inscrit avec succès !');
+        alert('Tu t\'es inscrit avec succès !');
     };
 
     // Function to toggle the visibility of both the password and confirm password fields.

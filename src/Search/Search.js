@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import axios from 'axios';
 
 import SearchResult from './SearchResult';
+import SearchFavorite from './SearchFavorite';
 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -12,7 +13,7 @@ import Grid from '@mui/material/Grid';
 import './Search.scss';
 
 
-const Search = () => {
+const Search = ({ loggedInUser }) => {
     // Set initial state for search query and search results
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
@@ -20,11 +21,30 @@ const Search = () => {
     const [offset, setOffset] = useState(0);
     const [hasMoreData, setHasMoreData] = useState(true);
 
+    // State to store favorite GIFs using Set to avoid duplicates
+    const [favorites, setFavorites] = useState(new Map());
 
     // Handle search query input changes
     const handleSearchQueryChange = (e) => {
         setSearchQuery(e.target.value);
     };
+
+    // This useEffect runs when the loggedInUser changes (i.e., on component mount and when a user logs in/out)
+    useEffect(() => {
+        // If there's a loggedInUser, try to get their favorites from localStorage
+        const storedFavorites = loggedInUser && localStorage.getItem(`favorites-${loggedInUser.id}`);
+
+        if (storedFavorites) {
+            // Parse the JSON string stored in localStorage to get an array of favorites
+            const parsedFavorites = JSON.parse(storedFavorites);
+            // Create a new Map from the parsedFavorites array, using the same [id, gifData] structure
+            const favoritesMap = new Map(parsedFavorites.map(([id, gifData]) => [id, gifData]));
+            setFavorites(favoritesMap);
+        } else {
+            // If there are no storedFavorites, initialize the favorites state with an empty Map
+            setFavorites(new Map());
+        }
+    }, [loggedInUser]); // The useEffect depends on the loggedInUser prop, so it's included in the dependency array
 
     // Search Giphy API and update search results
     const searchGiphy = async (query, newOffset) => {
@@ -57,7 +77,6 @@ const Search = () => {
     const handleCloseResults = () => {
         setOpenResults(false);
     };
-
 
     // Handle form submission
     const handleSubmit = (e) => {
@@ -103,6 +122,13 @@ const Search = () => {
                 onClose={() => handleCloseResults()}
                 fetchMoreData={() => setTimeout(() => searchGiphy(searchQuery, offset), 1500)}
                 hasMoreData={hasMoreData}
+                favorites={favorites}
+                setFavorites={setFavorites}
+                loggedInUser={loggedInUser}
+            />
+            <SearchFavorite
+                favorites={favorites}
+                loggedInUser={loggedInUser}
             />
         </Box>
     );

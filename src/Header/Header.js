@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -16,11 +16,10 @@ import SignInForm from './SignInForm';
 import SignUpForm from './SignUpForm';
 
 
-const Header = () => {
+const Header = ({ loggedInUser, onUserLogin, onLogout }) => {
   // State variables
   const [openModal, setOpenModal] = useState(false); // Controls modal open/close state
   const [selectedTab, setSelectedTab] = useState(0); // Controls selected tab in the modal
-  const [loggedInUser, setLoggedInUser] = useState(null); // Stores logged-in user information
   const [menuAnchorEl, setMenuAnchorEl] = useState(null); // Stores the anchor element for the menu
 
   // Modal open/close handlers
@@ -36,16 +35,16 @@ const Header = () => {
     setSelectedTab(newValue);
   };
 
-  // User login/logout handlers
-  const handleUserLogin = (user) => {
-    setLoggedInUser(user);
+  // handler login/logout call the onUserLogin/onLogout props
+  const handleUserLogin = async (user) => {
+    onUserLogin(user);
+    await new Promise((resolve) => setTimeout(resolve, 0));
     setOpenModal(false);
-  };
+  };  
   const handleLogout = () => {
-    localStorage.removeItem('loggedInUser');
-    setLoggedInUser(null);
-    handleMenuClose(); 
-  };
+    onLogout();
+    handleMenuClose();
+  }
 
   // Menu open/close handlers
   const handleMenuOpen = (event) => {
@@ -54,14 +53,6 @@ const Header = () => {
   const handleMenuClose = () => {
     setMenuAnchorEl(null);
   };
-
-  // Check for a logged-in user on component mount
-  useEffect(() => {
-    const storedLoggedInUser = JSON.parse(localStorage.getItem('loggedInUser')); 
-    if (storedLoggedInUser) { 
-      setLoggedInUser(storedLoggedInUser);
-    }
-  }, []);
 
   return (
     <header>

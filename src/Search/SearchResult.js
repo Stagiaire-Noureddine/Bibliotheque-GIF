@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -12,20 +10,24 @@ import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import './Search.scss';
 
 
-const SearchResult = ({ results, open, onClose, fetchMoreData, hasMoreData }) => {
-
-    // State to store favorite GIFs using Set to avoid duplicates
-    const [favorites, setFavorites] = useState(new Set());
-
+const SearchResult = ({ results, open, onClose, fetchMoreData, hasMoreData, favorites, setFavorites, loggedInUser }) => {
     // Handle favoriting/unfavoriting a GIF by adding/removing its ID to/from the favorites Set
     const handleFavorite = (result) => {
+        if (!loggedInUser) {
+            alert("Tu dois être connecté pour ajouter des GIFs à tes favoris.");
+            return;
+        }
         setFavorites((prevFavorites) => {
-            const newFavorites = new Set(prevFavorites);
+            const newFavorites = new Map(prevFavorites);
+
             if (newFavorites.has(result.id)) {
                 newFavorites.delete(result.id);
             } else {
-                newFavorites.add(result.id);
+                newFavorites.set(result.id, { userId: loggedInUser.id, ...result });
             }
+
+            // Store the updated favorites for the current user in localStorage
+            localStorage.setItem(`favorites-${loggedInUser.id}`, JSON.stringify(Array.from(newFavorites.entries())));
             return newFavorites;
         });
     };
@@ -63,7 +65,7 @@ const SearchResult = ({ results, open, onClose, fetchMoreData, hasMoreData }) =>
                                         <img className="gif" src={result.images.fixed_height.url} alt={result.title} />
                                         {/* Overlay for favoriting/unfavoriting a GIF */}
                                         <div className="gifOverlay" onClick={() => handleFavorite(result)}>
-                                            {/* Display the appropriate favorite icon based on the favorited state */} 
+                                            {/* Display the appropriate favorite icon based on the favorited state */}
                                             {isFavorited ? (
                                                 <FavoriteOutlined style={{ color: 'red' }} />
                                             ) : (

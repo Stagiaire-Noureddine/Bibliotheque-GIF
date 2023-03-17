@@ -46,3 +46,17 @@
     transition: opacity 0.3s ease;
   }
 }
+
+/*** SearchFavorite.js ***/
+.searchFavorite {
+  margin-top: 2rem;
+
+  h3 {
+    margin-bottom: 1rem;
+  }
+
+  .gif {
+    width: 100%;
+    height: auto;
+  }
+}

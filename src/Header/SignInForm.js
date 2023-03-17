@@ -13,7 +13,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 
 const SignInForm = ({ onLogin }) => {
-    const [values, setValues] = useState({ 
+    const [values, setValues] = useState({
         // State to manage form values and UI interactions.
         email: '',
         password: '',
@@ -27,7 +27,7 @@ const SignInForm = ({ onLogin }) => {
         if (rememberMe !== null) {
             // Set the rememberMe value in the state if it exists in localStorage.
             setValues((prevState) => ({ ...prevState, rememberMe }));
-    
+
             const rememberedUser = JSON.parse(localStorage.getItem('rememberedUser'));
             if (rememberedUser) {
                 // If there is a remembered user, set their email and password in the state.
@@ -39,7 +39,6 @@ const SignInForm = ({ onLogin }) => {
             }
         }
     }, []);
-    
 
     // Handle form submission for the SignInForm.
     const handleSubmit = (e) => {
@@ -68,7 +67,7 @@ const SignInForm = ({ onLogin }) => {
                 // Remove the rememberedUser from localStorage if rememberMe is unchecked
                 localStorage.removeItem('rememberedUser');
             }
-
+            onLogin(user);
             // Clear the form
             setValues({
                 email: '',
@@ -128,7 +127,6 @@ const SignInForm = ({ onLogin }) => {
                 type={values.showPassword ? 'text' : 'password'}
                 value={values.password}
                 onChange={(e) => setValues({ ...values, password: e.target.value })}
-
                 fullWidth
                 margin="normal"
                 required
@@ -148,7 +146,6 @@ const SignInForm = ({ onLogin }) => {
                     shrink: true,
                 }}
             />
-
             <FormControlLabel
                 control={
                     <Checkbox

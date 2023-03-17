@@ -77,7 +77,7 @@ const SignInForm = ({ onLogin }) => {
             });
 
             // Redirect to another page or show a success message
-            alert('Vous vous êtes connecté avec succès !');
+            alert('Tu t\'es connecté avec succès !');
         } else {
             // If the user is not found, show an error message
             alert('Nom d\'utilisateur ou mot de passe incorrect !');

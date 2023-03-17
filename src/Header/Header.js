@@ -11,12 +11,13 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import LinearProgress from '@mui/material/LinearProgress';
 
 import SignInForm from './SignInForm';
 import SignUpForm from './SignUpForm';
 
 
-const Header = ({ loggedInUser, onUserLogin, onLogout }) => {
+const Header = ({ loggedInUser, onUserLogin, onLogout, loading }) => {
   // State variables
   const [openModal, setOpenModal] = useState(false); // Controls modal open/close state
   const [selectedTab, setSelectedTab] = useState(0); // Controls selected tab in the modal
@@ -61,6 +62,7 @@ const Header = ({ loggedInUser, onUserLogin, onLogout }) => {
 
   return (
     <header>
+     {loading && <LinearProgress />} {/* Render the loading indicator when loading */}
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
@@ -119,7 +121,7 @@ const Header = ({ loggedInUser, onUserLogin, onLogout }) => {
         onClose={handleMenuClose} // Close the menu when clicking outside the menu
         onClick={handleMenuClose} // Close the menu when clicking a menu item
       >
-        <MenuItem onClick={handleLogout}>Log Out</MenuItem> {/* Menu item to log out */}
+        <MenuItem onClick={handleLogout}>Déconnexion</MenuItem> {/* Menu item to log out */}
       </Menu>
     </header>
   );

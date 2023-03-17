@@ -4,7 +4,8 @@ import Search from '../Search/Search';
 import './Library.scss';
 
 function Library() {
-  const [loggedInUser, setLoggedInUser] = useState(null);
+  const [loggedInUser, setLoggedInUser] = useState(null); // Stores the logged in user
+  const [loading, setLoading] = useState(true); // Controls loading of the user status from localStorage
 
   // Load the logged in user from localStorage when the component mounts
   useEffect(() => {
@@ -12,6 +13,8 @@ function Library() {
     if (storedLoggedInUser) {
       setLoggedInUser(storedLoggedInUser);
     }
+      // After fetching the data, set loading to false
+    setLoading(false);
   }, []);
 
   const handleUserLogin = (user) => {
@@ -28,6 +31,7 @@ function Library() {
         loggedInUser={loggedInUser}
         onUserLogin={handleUserLogin}
         onLogout={handleLogout}
+        loading={loading}
       />
       <Search
       loggedInUser={loggedInUser}

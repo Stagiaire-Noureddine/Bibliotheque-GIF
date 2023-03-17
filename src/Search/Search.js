@@ -49,8 +49,9 @@ const Search = ({ loggedInUser }) => {
     // Search Giphy API and update search results
     const searchGiphy = async (query, newOffset) => {
         // API key and URL
-        const API_KEY = 'LV727P1jkkTgTG4upLr10e3Jwy6zJUCq';
-        const url = `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${query}&limit=12&offset=${newOffset}&rating=g&lang=fr`;
+        const API_KEY = process.env.REACT_APP_GIPHY_API_KEY;
+        const API_BASE_URL = process.env.REACT_APP_GIPHY_API_BASE_URL;
+        const url = `${API_BASE_URL}/search?api_key=${API_KEY}&q=${query}&limit=12&offset=${newOffset}&rating=g&lang=fr`;
 
         // Fetch data from Giphy API
         try {

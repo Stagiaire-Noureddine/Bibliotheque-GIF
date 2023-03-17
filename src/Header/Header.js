@@ -35,6 +35,11 @@ const Header = ({ loggedInUser, onUserLogin, onLogout }) => {
     setSelectedTab(newValue);
   };
 
+  // Change tab to singin after successful signup
+  const handleUserSignup = () => {
+    setSelectedTab(0);
+  };
+
   // handler login/logout call the onUserLogin/onLogout props
   const handleUserLogin = async (user) => {
     onUserLogin(user);
@@ -104,7 +109,7 @@ const Header = ({ loggedInUser, onUserLogin, onLogout }) => {
             <Tab label="Inscription" />
           </Tabs>
           {selectedTab === 0 && <SignInForm onLogin={handleUserLogin} />} {/* Render SignInForm when selectedTab is 0 (Connexion) and pass the handleUserLogin function as a prop */}
-          {selectedTab === 1 && <SignUpForm />} {/* Render SignUpForm when selectedTab is 1 (Inscription) */}
+          {selectedTab === 1 && <SignUpForm onSignupSuccess={handleUserSignup} />} {/* Render SignUpForm when selectedTab is 1 (Inscription) and pass the handleUserSignup function as a prop */}
         </Box>
       </Modal>
       {/* Menu for the user to log out */}

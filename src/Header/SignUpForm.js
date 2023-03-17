@@ -12,7 +12,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import ReCAPTCHA from 'react-google-recaptcha';
 
 
-const SignUpForm = () => {
+const SignUpForm = ({ onSignupSuccess }) => {
     // State to hold form values and UI interactions.
     const [values, setValues] = useState({
         name: '',
@@ -66,6 +66,7 @@ const SignUpForm = () => {
 
         // Show a success message
         alert('Tu t\'es inscrit avec succès !');
+        onSignupSuccess();
     };
 
     // Function to toggle the visibility of both the password and confirm password fields.

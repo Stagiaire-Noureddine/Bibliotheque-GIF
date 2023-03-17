@@ -62,7 +62,10 @@ const Header = ({ loggedInUser, onUserLogin, onLogout, loading }) => {
 
   return (
     <header>
-     {loading && <LinearProgress />} {/* Render the loading indicator when loading */}
+     {loading ? ( // Render the loading indicator when loading
+        <LinearProgress />
+      ) : (
+      <> 
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
@@ -123,6 +126,8 @@ const Header = ({ loggedInUser, onUserLogin, onLogout, loading }) => {
       >
         <MenuItem onClick={handleLogout}>Déconnexion</MenuItem> {/* Menu item to log out */}
       </Menu>
+      </>
+      )}
     </header>
   );
 };

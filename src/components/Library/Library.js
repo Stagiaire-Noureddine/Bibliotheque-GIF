@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react';
+
 import Header from '../Header/Header';
 import Search from '../Search/Search';
+
+// import auth from '../../utils/auth';
+import { FavoriteProvider } from '../../contexts/FavoriteContext';
+
 import './Library.scss';
 
 function Library() {
@@ -33,9 +38,11 @@ function Library() {
         onLogout={handleLogout}
         loading={loading}
       />
+      <FavoriteProvider loggedInUser={loggedInUser}>
       <Search
       loggedInUser={loggedInUser}
       />
+      </FavoriteProvider>
     </div>
   );
 }

@@ -37,6 +37,7 @@ Command to run JSON server: npm run json-server (this will start the server on h
 
 In it add :
 REACT_APP_GIPHY_API_BASE_URL=https://api.giphy.com/v1/gifs
+
 REACT_APP_GIPHY_API_KEY=<'your API key from GIPHY'>
 
 5. Start the JSON server

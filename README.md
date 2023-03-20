@@ -1,70 +1,61 @@
-# Getting Started with Create React App
+# Pick My GIFs
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The objective of this project is to create a single page application where users can add GIFs to their library. Upon arrival on the page, users will find a form to search for GIFs, after a search the user will see  a modal that allows them to view the most relevant GIFs returned in an infinite scroll, and a "heart" button to add selected GIFs to their library.
+A "My GIFs" block displays a list of GIFs that the user has selected and added to their library.
 
-## Available Scripts
+This project was developed using React (via create-react-app), and the MUI library. To run the project, clone the repository, install the dependencies, and start the development server. Detailed instructions can be found in the "Installation and Setup" section of this README.
 
-In the project directory, you can run:
+Note: this project does not use JWT authentication and instead uses json-server for user management; the data is not secured so do not use sensitive information.
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Prerequisites
 
-### `npm test`
+Prerequisites
+Node.js (v12 or higher) installed on your local machine
+NPM package manager (v6 or higher)
+JSON server installed globally npm install -g json-server
+Command to run JSON server: npm run json-server (this will start the server on http://localhost:4000)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Installation and Setup
 
-### `npm run build`
+1. Clone the repository:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```git clone https://github.com/<your-username>/pick-my-gifs.git```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Navigate to the project directory
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+``` cd pick-my-gifs ```
 
-### `npm run eject`
+3. Install dependencies:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+``` npm install ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4. Start the JSON server
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+``` npm run json-server ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+5. In a separate terminal tab, start the development server:
 
-## Learn More
+``` npm start ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+6. Open your browser and navigate to http://localhost:3000 to view the app.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+## Built With
+- React
+- MUI
+- Giphy API
+- json-server
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Authors
 
-### Analyzing the Bundle Size
+- Noureddine RAKMANI ](https://github.com/Stagiaire-Noureddine)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Acknowledgments
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Giphy API - The GIF search API used
+create-react-app - The React project boilerplate used
+Material-UI - The React UI framework used

@@ -1,4 +1,5 @@
 import { useFavorite } from '../../contexts/FavoriteContext';
+
 import SearchResult from './SearchResult';
 import SearchFavorite from './SearchFavorite';
 
@@ -10,11 +11,9 @@ import Grid from '@mui/material/Grid';
 import './Search.scss';
 
 const Search = () => {
-
     const {
         handleSearchQueryChange,
         handleSubmit,
-        loggedInUser,
       } = useFavorite();
 
     return (
@@ -42,7 +41,7 @@ const Search = () => {
             </Grid>
             {/* Display search results in a modal */}
             <SearchResult />
-            <SearchFavorite loggedInUser={loggedInUser} />
+            <SearchFavorite/>
         </Box>
     );
 };

@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 
 import { useFavorite } from '../../contexts/FavoriteContext';
+import { useUser } from '../../contexts/UserContext';
+
 import { getStoredFavorites, saveFavoritesToStorage } from '../../utils/search/favoriteUtils';
 
 import GifMasonry from './GifMasonry';
@@ -8,8 +10,9 @@ import GifItem from './GifItem';
 
 import './Search.scss';
 
-const SearchFavorite = ({ loggedInUser }) => {
+const SearchFavorite = () => {
     const { favorites, setFavorites } = useFavorite();
+    const { loggedInUser } = useUser();
 
     useEffect(() => {
         setFavorites(getStoredFavorites(loggedInUser));

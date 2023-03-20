@@ -1,0 +1,52 @@
+{
+  "users": [
+    {
+      "name": "Pips",
+      "email": "pips@pips.fr",
+      "password": "pips",
+      "id": 1
+    },
+    {
+      "name": "polps",
+      "email": "polps@polps.fr",
+      "password": "polps",
+      "id": 2
+    },
+    {
+      "name": "Polp",
+      "email": "polp@polp.fr",
+      "password": "polp",
+      "id": 3
+    },
+    {
+      "name": "pip",
+      "email": "pip@pip.fr",
+      "password": "pip",
+      "id": 4
+    },
+    {
+      "name": "Pipounette",
+      "email": "p@p.fr",
+      "password": "p",
+      "id": 5
+    },
+    {
+      "name": "p",
+      "email": "a@a.fr",
+      "password": "a",
+      "id": 6
+    },
+    {
+      "name": "p",
+      "email": "a@a.fr",
+      "password": "a",
+      "id": 7
+    },
+    {
+      "name": "z",
+      "email": "z@z.fr",
+      "password": "z",
+      "id": 8
+    }
+  ]
+}

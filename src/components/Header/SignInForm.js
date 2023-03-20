@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -11,88 +11,42 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
+import { useFormState } from '../../hooks/useFormState';
+import { useUser } from '../../contexts/UserContext';
+import { getUserByEmailAndPassword } from '../../utils/api/authApi';
 
-const SignInForm = ({ onLogin }) => {
-    const [values, setValues] = useState({
-        // State to manage form values and UI interactions.
-        email: '',
-        password: '',
-        rememberMe: false,
-        showPassword: false,
+
+const SignInForm = () => {
+    const { handleUserLogin } = useUser();
+    const [values, handleChange, handlePasswordVisibility] = useFormState({
+      email: '',
+      password: '',
+      rememberMe: false,
+      showPassword: false,
     });
 
-    useEffect(() => {
-        // Load rememberMe value and user information from localStorage when the component mounts
-        const rememberMe = JSON.parse(localStorage.getItem('rememberMe'));
-        if (rememberMe !== null) {
-            // Set the rememberMe value in the state if it exists in localStorage.
-            setValues((prevState) => ({ ...prevState, rememberMe }));
+    const [error, setError] = useState('');
 
-            const rememberedUser = JSON.parse(localStorage.getItem('rememberedUser'));
-            if (rememberedUser) {
-                // If there is a remembered user, set their email and password in the state.
-                setValues((prevState) => ({
-                    ...prevState,
-                    email: rememberedUser.email,
-                    password: rememberedUser.password,
-                }));
-            }
-        }
-    }, []);
-
-    // Handle form submission for the SignInForm.
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // Retrieve the list of registered users from localStorage
-        const users = JSON.parse(localStorage.getItem('users') || '[]');
-
-        // Find the user with the matching email and password
-        const user = users.find(
-            (u) => u.email === values.email && u.password === values.password
-        );
-
-        if (user) {
-            // If the user is found, store the user information in localStorage
-            localStorage.setItem('loggedInUser', JSON.stringify(user));
-
-            // Save the rememberMe preference for the user
-            localStorage.setItem('rememberMe', JSON.stringify(values.rememberMe));
-
-            if (values.rememberMe) {
-                // Store the user's email and password if rememberMe is checked
-                localStorage.setItem('rememberedUser', JSON.stringify(user));
-                onLogin(user);
-            } else {
-                // Remove the rememberedUser from localStorage if rememberMe is unchecked
-                localStorage.removeItem('rememberedUser');
-            }
-            onLogin(user);
-            // Clear the form
-            setValues({
-                email: '',
-                password: '',
-                rememberMe: false,
-                showPassword: false,
-            });
-
-            // Redirect to another page or show a success message
-            alert('Tu t\'es connecté avec succès !');
-        } else {
-            // If the user is not found, show an error message
-            alert('Nom d\'utilisateur ou mot de passe incorrect !');
+        try {
+          const user = await getUserByEmailAndPassword(values.email, values.password);
+          if (user) {
+            await handleUserLogin(user, values.rememberMe);
+            console.log('rememberMe', values.rememberMe);
+          } else {
+            setError("Nom d'utilisateur ou mot de passe incorrect !");
+          }
+        } catch (error) {
+          console.error(error);
         }
-    };
+      };
 
-    // Toggle the visibility of the password field.
     const handleClickShowPassword = () => {
-        setValues({
-            ...values,
-            showPassword: !values.showPassword,
-        });
+        handlePasswordVisibility(values, handleChange);
     };
 
-    // Render the SignInForm component.
+
     return (
         <Box
             component="form"
@@ -107,14 +61,16 @@ const SignInForm = ({ onLogin }) => {
             }}
             onSubmit={handleSubmit}
         >
+            {error && <Typography color="error">{error}</Typography>}
             <Typography variant="h4" sx={{ marginBottom: 2 }}>
                 Connexion
             </Typography>
             <TextField
                 label="Email"
                 type="email"
+                name="email"
                 value={values.email}
-                onChange={(e) => setValues({ ...values, email: e.target.value })}
+                onChange={handleChange}
                 fullWidth
                 margin="normal"
                 required
@@ -125,8 +81,9 @@ const SignInForm = ({ onLogin }) => {
             <TextField
                 label="Password"
                 type={values.showPassword ? 'text' : 'password'}
+                name="password"
                 value={values.password}
-                onChange={(e) => setValues({ ...values, password: e.target.value })}
+                onChange={handleChange}
                 fullWidth
                 margin="normal"
                 required
@@ -150,8 +107,8 @@ const SignInForm = ({ onLogin }) => {
                 control={
                     <Checkbox
                         checked={values.rememberMe}
-                        onChange={(e) => setValues({ ...values, rememberMe: e.target.checked })}
-
+                        onChange={handleChange}
+                        name="rememberMe"
                     />
                 }
                 label="Remember me"

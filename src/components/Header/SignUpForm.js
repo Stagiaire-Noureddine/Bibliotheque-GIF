@@ -1,5 +1,4 @@
-import { useState } from 'react';
-
+// External libraries
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -9,73 +8,42 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
+// Custom hooks
+import { useFormState } from '../../hooks/useFormState';
+import { useUser } from '../../contexts/UserContext';
+
 import ReCAPTCHA from 'react-google-recaptcha';
 
 
 const SignUpForm = ({ onSignupSuccess }) => {
-    // State to hold form values and UI interactions.
-    const [values, setValues] = useState({
-        name: '',
+    const { handleSignup } = useUser();
+    const [values, handleChange, handlePasswordVisibility] = useFormState({
         email: '',
         password: '',
         confirmPassword: '',
+        firstName: '',
+        lastName: '',
+        name: '',
         showPassword: false,
         showConfirmPassword: false,
     });
 
     // State to hold the value of the ReCAPTCHA response (currently not functional with no back-end).
-    const [captchaValue, setCaptchaValue] = useState('');
+    // const [captchaValue, setCaptchaValue] = useState('');
 
     // Function to handle changes in the ReCAPTCHA response (currently not functional with no back-end).
-    const handleCaptchaChange = (value) => {
-        setCaptchaValue(value);
-    };
+    // const handleCaptchaChange = (value) => {
+    //     setCaptchaValue(value);
+    // };
 
-    // Function to handle form submission, validate form fields, and save user data in localStorage.
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        // Validate the form, e.g. make sure the password and confirm password fields match
-        if (values.password !== values.confirmPassword) {
-            alert("Les mots de passe ne correspondent pas !");
-            return;
-        }
-
-        // Create a user object
-        const user = {
-            id: Date.now(),
-            name: values.name,
-            email: values.email,
-            password: values.password,
-        };
-
-        // Save the user object to localStorage
-        let users = JSON.parse(localStorage.getItem('users') || '[]');
-        users.push(user);
-        localStorage.setItem('users', JSON.stringify(users));
-
-        // Clear the form
-        setValues({
-            name: '',
-            email: '',
-            password: '',
-            confirmPassword: '',
-            showPassword: false,
-            showConfirmPassword: false,
-        });
-
-        // Show a success message
-        alert('Tu t\'es inscrit avec succès !');
-        onSignupSuccess();
+        handleSignup(values, onSignupSuccess);
     };
 
     // Function to toggle the visibility of both the password and confirm password fields.
     const handleClickShowPassword = () => {
-        setValues({
-            ...values,
-            showPassword: !values.showPassword,
-            showConfirmPassword: !values.showConfirmPassword,
-        });
+        handlePasswordVisibility(values, handleChange);
     };
 
     return (
@@ -98,8 +66,9 @@ const SignUpForm = ({ onSignupSuccess }) => {
             <TextField
                 label="Name"
                 type="text"
+                name="name"
                 value={values.name}
-                onChange={(e) => setValues({ ...values, name: e.target.value })}
+                onChange={handleChange}
                 fullWidth
                 margin="normal"
                 required
@@ -110,8 +79,9 @@ const SignUpForm = ({ onSignupSuccess }) => {
             <TextField
                 label="Email"
                 type="email"
+                name="email"
                 value={values.email}
-                onChange={(e) => setValues({ ...values, email: e.target.value })}
+                onChange={handleChange}
                 fullWidth
                 margin="normal"
                 required
@@ -122,8 +92,9 @@ const SignUpForm = ({ onSignupSuccess }) => {
             <TextField
                 label="Password"
                 type={values.showPassword ? 'text' : 'password'}
+                name="password"
                 value={values.password}
-                onChange={(e) => setValues({ ...values, password: e.target.value })}
+                onChange={handleChange}
                 fullWidth
                 margin="normal"
                 required
@@ -146,8 +117,9 @@ const SignUpForm = ({ onSignupSuccess }) => {
             <TextField
                 label="Confirm Password"
                 type={values.showConfirmPassword ? 'text' : 'password'}
+                name="confirmPassword"
                 value={values.confirmPassword}
-                onChange={(e) => setValues({ ...values, confirmPassword: e.target.value })}
+                onChange={handleChange}
                 fullWidth
                 margin="normal"
                 required
@@ -156,7 +128,7 @@ const SignUpForm = ({ onSignupSuccess }) => {
                 }}
             />
             {/* I added ReCAPTCHA for the fun of it, I'm well aware that without a back-end, it's unusable */}
-            <ReCAPTCHA sitekey="6LeJ8AQlAAAAANqwBMV3x799ask5UFJUkxxY8-lL" onChange={handleCaptchaChange} />
+            {/* <ReCAPTCHA sitekey="6LeJ8AQlAAAAANqwBMV3x799ask5UFJUkxxY8-lL" onChange={handleCaptchaChange} /> */}
 
             <Button type="submit" variant="contained" sx={{ marginTop: 2 }}>
                 S'incrire

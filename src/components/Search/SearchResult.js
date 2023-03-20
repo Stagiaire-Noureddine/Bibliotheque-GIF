@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 
 import { useFavorite } from '../../contexts/FavoriteContext';
+import { useUser } from '../../contexts/UserContext';
 import { saveFavoritesToStorage } from '../../utils/search/favoriteUtils';
 
 import GifMasonry from './GifMasonry';
@@ -21,8 +22,9 @@ const SearchResult = () => {
         handleInfiniteScrollWrapper,
         handleCloseResults,
         openResults,
-        loggedInUser,
     } = useFavorite();
+
+    const { loggedInUser } = useUser();
 
     // Handle favoriting/unfavoriting a GIF by adding/removing its ID to/from the favorites Set
     const handleFavorite = (result) => {

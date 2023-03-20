@@ -7,7 +7,7 @@ export const useFavorite = () => {
   return useContext(FavoriteContext);
 };
 
-export const FavoriteProvider = ({ children, loggedInUser }) => {
+export const FavoriteProvider = ({ children }) => {
   const search = useSearch();
   const [favorites, setFavorites] = useState(new Map());
 
@@ -15,7 +15,6 @@ export const FavoriteProvider = ({ children, loggedInUser }) => {
     ...search,
     favorites,
     setFavorites,
-    loggedInUser,
   };
 
   return (

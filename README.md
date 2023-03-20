@@ -33,13 +33,25 @@ Command to run JSON server: npm run json-server (this will start the server on h
 
 ``` npm install ```
 
-4. Create a .env file at the root of the repository
+4. Go to the Giphy Developers page (https://developers.giphy.com/) and create an account.
 
-In it add :
+    Follow the instructions to create a new app and obtain an API key.
 
-REACT_APP_GIPHY_API_BASE_URL=https://api.giphy.com/v1/gifs
+    Create a new file in the root of your project directory and name it .env.
 
-REACT_APP_GIPHY_API_KEY=<'your API key from GIPHY'>
+    Open the .env file and add your environment variables in this format:
+
+     VARIABLE_NAME=variable_value. 
+
+    ``` 
+    REACT_APP_GIPHY_API_BASE_URL=https://api.giphy.com/v1/gifs
+
+    REACT_APP_GIPHY_API_KEY=YOUR_API_KEY_HERE
+    ```
+
+    Make sure to replace YOUR_API_KEY_HERE with the API key you obtained from Giphy.
+
+    Save the changes to the .env file.
 
 5. Start the JSON server
 

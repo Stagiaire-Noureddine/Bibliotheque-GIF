@@ -33,6 +33,12 @@ Command to run JSON server: npm run json-server (this will start the server on h
 
 ``` npm install ```
 
+4. Create a .env file at the root of the repository
+
+In it add :
+REACT_APP_GIPHY_API_BASE_URL=<https://api.giphy.com/v1/gifs>
+REACT_APP_GIPHY_API_KEY=<'your API key from GIPHY'>
+
 4. Start the JSON server
 
 ``` npm run json-server ```

@@ -22,7 +22,7 @@ import { useTabsState } from '../../hooks/useTabsState';
 import { useMenuState } from '../../hooks/useMenuState';
 
 const Header = () => {
-  const { loggedInUser, handleUserLogin, handleLogout, loading, isSignedIn, resetSignedIn  } = useUser();
+  const { loggedInUser, handleUserLogin, handleLogout, loading, isSignedIn, resetSignedIn } = useUser();
   const [openModal, handleOpenModal, handleCloseModal] = useModalState(false);
   const [selectedTab, handleChangeTab] = useTabsState(0);
   const [menuAnchorEl, handleMenuOpen, handleMenuClose] = useMenuState(null);

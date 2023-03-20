@@ -12,7 +12,7 @@ export const useFormState = (initialValues) => {
       [name]: type === 'checkbox' ? checked : value,
     }));
   };
-  
+
 
   const resetValues = () => {
     setValues(initialValues);

@@ -22,7 +22,7 @@ const SearchFavorite = () => {
     const favoritedGifs = Array.from(favorites.entries()).map(([id, gifData]) => ({
         ...gifData,
         id,
-      }));      
+    }));
 
     const handleFavorite = (gif) => {
         setFavorites((prevFavorites) => {
@@ -47,14 +47,14 @@ const SearchFavorite = () => {
             <h3>GIFs favoris :</h3>
             {/* ResponsiveMasonry component for responsive grid layout */}
             <GifMasonry>
-                    {favoritedGifs.map((gif) => (
-                        <GifItem
-                            key={gif.id}
-                            result={gif}
-                            isFavorited={true}
-                            handleFavorite={handleFavorite}
-                        />
-                    ))}
+                {favoritedGifs.map((gif) => (
+                    <GifItem
+                        key={gif.id}
+                        result={gif}
+                        isFavorited={true}
+                        handleFavorite={handleFavorite}
+                    />
+                ))}
             </GifMasonry>
         </div>
     );

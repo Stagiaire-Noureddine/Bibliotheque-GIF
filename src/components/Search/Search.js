@@ -14,7 +14,7 @@ const Search = () => {
     const {
         handleSearchQueryChange,
         handleSubmit,
-      } = useFavorite();
+    } = useFavorite();
 
     return (
         // Form for searching GIFs
@@ -41,7 +41,7 @@ const Search = () => {
             </Grid>
             {/* Display search results in a modal */}
             <SearchResult />
-            <SearchFavorite/>
+            <SearchFavorite />
         </Box>
     );
 };

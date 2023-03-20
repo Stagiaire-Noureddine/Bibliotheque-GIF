@@ -25,7 +25,6 @@ const SearchResult = () => {
     } = useFavorite();
 
     const { loggedInUser } = useUser();
-
     // Handle favoriting/unfavoriting a GIF by adding/removing its ID to/from the favorites Set
     const handleFavorite = (result) => {
         if (!loggedInUser) {
@@ -68,17 +67,17 @@ const SearchResult = () => {
                 >
                     {/* Masonry component for fixed-width columns with consistent vertical spacing */}
                     <GifMasonry>
-                            {searchResults.map((result) => {
-                                const isFavorited = favorites.has(result.id);
-                                return (
-                                    <GifItem
-                                        key={result.id}
-                                        result={result}
-                                        isFavorited={isFavorited}
-                                        handleFavorite={handleFavorite}
-                                    />
-                                );
-                            })}
+                        {searchResults.map((result) => {
+                            const isFavorited = favorites.has(result.id);
+                            return (
+                                <GifItem
+                                    key={result.id}
+                                    result={result}
+                                    isFavorited={isFavorited}
+                                    handleFavorite={handleFavorite}
+                                />
+                            );
+                        })}
                     </GifMasonry>
                 </InfiniteScroll>
             </Box>

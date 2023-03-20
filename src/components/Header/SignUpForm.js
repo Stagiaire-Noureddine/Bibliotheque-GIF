@@ -12,7 +12,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useFormState } from '../../hooks/useFormState';
 import { useUser } from '../../contexts/UserContext';
 
-import ReCAPTCHA from 'react-google-recaptcha';
+// import ReCAPTCHA from 'react-google-recaptcha';
 
 
 const SignUpForm = ({ onSignupSuccess }) => {
@@ -129,7 +129,6 @@ const SignUpForm = ({ onSignupSuccess }) => {
             />
             {/* I added ReCAPTCHA for the fun of it, I'm well aware that without a back-end, it's unusable */}
             {/* <ReCAPTCHA sitekey="6LeJ8AQlAAAAANqwBMV3x799ask5UFJUkxxY8-lL" onChange={handleCaptchaChange} /> */}
-
             <Button type="submit" variant="contained" sx={{ marginTop: 2 }}>
                 S'incrire
             </Button>

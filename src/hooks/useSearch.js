@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { searchGiphy, handleInfiniteScroll } from '../utils/search/searchUtils';
 
@@ -37,7 +37,7 @@ export const useSearch = () => {
     searchParams.set('q', query);
     navigate({ search: searchParams.toString() });
   };
-  
+
   const handleSearchQueryChange = (e) => {
     setSearchQuery(e.target.value);
   };
@@ -59,13 +59,13 @@ export const useSearch = () => {
       setOpenResults(false);
     }
   }, [searchParams]);
-  
+
   useEffect(() => {
     if (searchParams.has('q')) {
       setOpenResults(true);
     }
   }, []);
-  
+
 
   return {
     searchResults,

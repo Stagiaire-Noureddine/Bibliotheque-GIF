@@ -76,20 +76,19 @@ export const UserProvider = ({ children }) => {
       console.error(error);
     }
   };
-  
+
 
   const handleLogout = async () => {
     try {
       console.log('Logging out...');
       // await axios.post('http://localhost:4000/logout');
-      // console.log('POST request to /logout sent');
       Cookies.remove('loggedInUser');
       setLoggedInUser(null);
       console.log('User logged out successfully');
     } catch (error) {
       console.error(error);
     }
-  };  
+  };
 
   const resetSignedIn = () => {
     setIsSignedIn(false);

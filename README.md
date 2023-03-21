@@ -79,5 +79,7 @@ Command to run JSON server:
 ## Acknowledgments
 
 Giphy API - The GIF search API used
+
 create-react-app - The React project boilerplate used
+
 Material-UI - The React UI framework used

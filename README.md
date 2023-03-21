@@ -17,7 +17,9 @@ Prerequisites
 Node.js (v12 or higher) installed on your local machine
 NPM package manager (v6 or higher)
 JSON server installed globally npm install -g json-server
-Command to run JSON server: npm run json-server (this will start the server on http://localhost:4000)
+Command to run JSON server:
+
+``` npm run json-server ``` (this will start the server on http://localhost:4000)
 
 ### Installation and Setup
 
